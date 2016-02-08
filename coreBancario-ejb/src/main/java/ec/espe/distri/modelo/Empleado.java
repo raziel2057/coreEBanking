@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,11 +19,12 @@ import javax.persistence.Table;
  * @author RAUL
  */
 @Entity
-@Table(name = "MOVIMIENTO")
+@Table(name = "EMPLEADO")
 public class Empleado implements Serializable {
     @Id
-    @Column(name = "CODIGO_EMPLEADO", nullable = false)
-    private String codigo;
+     @GeneratedValue(strategy = GenerationType.IDENTITY)    
+     @Column(name = "CODIGO_EMPLEADO", nullable = false)
+     private Integer codigo;
     @Column(name = "NOMBRES", nullable = false)
     private String nombres;
     @Column(name = "IDENTIFICACION", nullable = false)
@@ -33,13 +36,31 @@ public class Empleado implements Serializable {
     @Column(name = "CONTRASENIA", nullable = false)
     private String contrasenia;
 
-    public String getCodigo() {
+    public Empleado() {
+    }
+
+    public Empleado(Integer codigo, String nombres, String identificacion, String correo, String usuario, String contrasenia) {
+        this.codigo = codigo;
+        this.nombres = nombres;
+        this.identificacion = identificacion;
+        this.correo = correo;
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+    }
+
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
+
+ 
+
+    
+    
+
 
     public String getNombres() {
         return nombres;

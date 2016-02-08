@@ -10,6 +10,7 @@ import ec.espe.distri.modelo.Cuenta;
 import ec.espe.distri.modelo.Persona;
 import ec.espe.distri.servicios.ClienteServicio;
 import ec.espe.distri.servicios.CuentaServicio;
+import ec.espe.distri.servicios.EmpleadoServicio;
 import ec.espe.distri.servicios.MovimientoServicio;
 import ec.espe.distri.servicios.PersonaServicio;
 import java.io.Serializable;
@@ -37,7 +38,8 @@ public class ClienteBean implements Serializable {
     
     @EJB
     private MovimientoServicio movimientoServicio;
-    
+    @EJB
+    private EmpleadoServicio empleadoServicio;
 
     public List<Cliente> getClientes() {
         return clientes;
@@ -60,9 +62,10 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void inicializar()
     {
-        this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1);
+        //this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1);
         this.clientes = this.clienteServicio.obtenerTodas();
         this.consolidado = this.cuentaServicio.consolidado(this.clientes.get(0).getCodigo());
         //this.consolidado = this.cuentaServicio.obtenerTodas();
+        //empleadoServicio.crearUsuarios();
     }
 }
