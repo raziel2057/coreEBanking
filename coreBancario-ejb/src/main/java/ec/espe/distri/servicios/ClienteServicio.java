@@ -27,4 +27,14 @@ public class ClienteServicio {
         return this.clienteDAO.findAll();
         
     }
+    public Cliente buscarPorCedula(String cedula)
+    {
+        Cliente c = new Cliente();
+        c.setIdentificacion(cedula);
+        List<Cliente> clientes = this.clienteDAO.findO(c);
+        if(clientes.size()>0)
+            return clientes.get(0);
+        else
+            return null;
+    }
 }

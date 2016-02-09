@@ -15,6 +15,8 @@ and open the template in the editor.
         <h:head>
             <title>SAIV</title>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link href="#{facesContext.externalContext.requestContextPath}/css/stylelogin.css" rel="stylesheet"/>
+
             <link href="#{facesContext.externalContext.requestContextPath}/images/style.css" rel="stylesheet"/>
         </h:head>      
 
@@ -26,7 +28,7 @@ and open the template in the editor.
                         <h:form>
                             <p:growl id="growl" showDetail="true" life="3000"  />    
                             <ui:insert name="contenidoHeader">
-                                Header
+                                
                             </ui:insert>
                         </h:form>
                     </div>   
