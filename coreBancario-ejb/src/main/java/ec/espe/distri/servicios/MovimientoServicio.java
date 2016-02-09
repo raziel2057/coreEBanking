@@ -38,7 +38,7 @@ public class MovimientoServicio {
         movimiento.setCodigoCuenta(codigoCuenta);
         return this.movimientoDAO.findO(movimiento,Order.DESC);
     }
-    public void deposito(BigDecimal monto,Integer codigoCuenta)
+    public void deposito(BigDecimal monto,Integer codigoCuenta,String descripcion)
     {
         Cuenta cuenta = this.cuentaDAO.findById(codigoCuenta, false);
         Movimiento movimiento = new Movimiento();
@@ -46,13 +46,14 @@ public class MovimientoServicio {
         movimiento.setFecha(new Date());
         movimiento.setMonto(monto);
         movimiento.setTipo("DE");
+        movimiento.setDescripcion(descripcion);
         movimiento.setSaldo(monto.add(cuenta.getSaldo()));
         cuenta.setSaldo(monto.add(cuenta.getSaldo()));
         this.cuentaDAO.update(cuenta);
         this.movimientoDAO.insert(movimiento);
     }
     
-    public void retiro(BigDecimal monto,Integer codigoCuenta)
+    public void retiro(BigDecimal monto,Integer codigoCuenta,String descripcion)
     {
         Cuenta cuenta = this.cuentaDAO.findById(codigoCuenta, false);
         Movimiento movimiento = new Movimiento();
@@ -60,9 +61,27 @@ public class MovimientoServicio {
         movimiento.setFecha(new Date());
         movimiento.setMonto(monto);
         movimiento.setTipo("RE");
+        movimiento.setDescripcion(descripcion);
         movimiento.setSaldo(cuenta.getSaldo().subtract(monto));
         cuenta.setSaldo(cuenta.getSaldo().subtract(monto));
         this.cuentaDAO.update(cuenta);
         this.movimientoDAO.insert(movimiento);
+    }
+    
+    public void transferencia(BigDecimal monto,Integer codigoCuentaOrigen,Integer codigoCuentaDestino)
+    {
+        //deposito
+        Cuenta cuentaOrigen = this.cuentaDAO.findById(codigoCuentaOrigen, false);
+        Cuenta cuentaDestino = this.cuentaDAO.findById(codigoCuentaDestino, false);
+        this.deposito(monto, codigoCuentaDestino, "Transferencia de "
+                                                    +cuentaOrigen.getCliente().getNombre()
+                                                    +" "
+                                                    +cuentaOrigen.getCliente().getApellido());
+        
+        this.retiro(monto, codigoCuentaOrigen, "Transferencia a "
+                                                    +cuentaDestino.getCliente().getNombre()
+                                                    +" "
+                                                    +cuentaDestino.getCliente().getApellido());
+       
     }
 }

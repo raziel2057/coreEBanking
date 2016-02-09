@@ -62,9 +62,11 @@ public class ClienteBean implements Serializable {
     @PostConstruct
     public void inicializar()
     {
-        //this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1);
+        //this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1,"Retiro, Cajero 1: Jose Almendariz");
+        this.movimientoServicio.transferencia(BigDecimal.valueOf(50.52d), 1, 2);
         this.clientes = this.clienteServicio.obtenerTodas();
-        this.consolidado = this.cuentaServicio.consolidado(this.clientes.get(0).getCodigo());
+        //this.consolidado = this.cuentaServicio.consolidado(this.clientes.get(0).getCodigo());
+        this.consolidado = this.cuentaServicio.obtenerTodas();
         //this.consolidado = this.cuentaServicio.obtenerTodas();
         //empleadoServicio.crearUsuarios();
     }

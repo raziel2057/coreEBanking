@@ -1,28 +1,74 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <p:dataTable var="cuenta" value="#{clienteBean.consolidado}">
-            <p:column headerText="Codigo">
-                <h:outputText value="#{cuenta.codigo}" />
-            </p:column>
 
-            <p:column headerText="saldo">
-                <h:outputText value="#{cuenta.saldo}" />
-            </p:column>
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Banca Electrónica</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link href="#{facesContext.externalContext.requestContextPath}/css/stylelogin.css" rel="stylesheet"/>
+            <link href="#{facesContext.externalContext.requestContextPath}/images/style.css" rel="stylesheet"/>
+        </h:head>      
 
-            
-        </p:dataTable>
-    </h:body>
+        <h:body>
+             <div id="page-container2">
+                <div id="header" >
+                    <div class="padding">
+
+                    </div>   
+                </div>
+                <div id="menu">
+
+                    <div class="padding">
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" life="3000"  />    
+                            <ui:insert name="contenidoMenu">
+                                <a href="faces/index.xhtml">Inicio</a>
+                            </ui:insert>
+                        </h:form>
+                    </div>
+
+
+                </div>
+                 <div id="content">
+                    <div class="padding">
+                        <div class="login">
+                                <h1>Login</h1>
+                                <h:form>
+                                    <h:panelGrid columns="1" width="320px">
+                                        <p:inputText tabindex="1" id="usuario" value="#{loginBean.username}" required="true" placeholder="Usuario" requiredMessage="Ingrese el nombre de usuario" />
+                                        <p:password tabindex="2" id="clave" value="#{loginBean.password}" required="true" placeholder="Contraseña"  requiredMessage="Ingrese una contraseña"/> 
+                                        <p:commandButton tabindex="3" id="loginButton" value="Aceptar" class="btn btn-primary btn-block btn-large"
+                                                 actionListener="#{loginBean.login()}" update="@form"
+                         oncomplete="manejarLogin(xhr, status, args)"/>
+                                        <p:commandButton id="registrarseButton" immediate="true" value="Registrarse" 
+                                      update="@form" 
+                                     action="registro.xhtml?faces-redirect=true"/>
+                                    </h:panelGrid>
+                                </h:form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="footer"> 
+
+                    Copyright © 2015 <a href="#">Banco Banquito</a> | <a href="#">Contactos</a>
+
+                </div>
+                
+             </div>
+
+        </h:body>
+
+    </f:view>
 </html>
-

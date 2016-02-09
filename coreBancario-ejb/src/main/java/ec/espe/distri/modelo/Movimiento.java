@@ -53,6 +53,9 @@ public class Movimiento implements Serializable {
     
     @Column(name = "SALDO", nullable = false)
      private BigDecimal saldo;
+    
+    @Column(name = "DESCRIPCION", nullable = false)
+     private String descripcion;
 
     public Integer getCodigo() {
         return codigo;
@@ -113,6 +116,16 @@ public class Movimiento implements Serializable {
         this.saldo = saldo;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -140,8 +153,10 @@ public class Movimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "Movimiento{" + "codigo=" + codigo + ", codigoCuenta=" + codigoCuenta + ", cuenta=" + cuenta + ", tipo=" + tipo + ", fecha=" + fecha + ", monto=" + monto + ", saldo=" + saldo + '}';
+        return "Movimiento{" + "codigo=" + codigo + ", codigoCuenta=" + codigoCuenta + ", cuenta=" + cuenta + ", tipo=" + tipo + ", fecha=" + fecha + ", monto=" + monto + ", saldo=" + saldo + ", descripcion=" + descripcion + '}';
     }
+
+ 
 
  
     

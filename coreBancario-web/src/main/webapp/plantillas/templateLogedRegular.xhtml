@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <title>SAIV</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <link href="#{facesContext.externalContext.requestContextPath}/images/style.css" rel="stylesheet"/>
+        </h:head>      
+
+        <h:body>
+
+            <div id="page-container2">
+                <div id="header" >
+                    <div class="padding">
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" life="3000"  />    
+                           
+                                
+                                <p:commandLink id="logout" actionListener="#{loginBean.logout}"
+                                               style="margin-right:20px;" oncomplete="logout(xhr, status, args)">
+                                    <h:outputText value="#{ loginBean.estaLogeado() ? loginBean.username.concat(', logout'):'logout'}" />
+                                </p:commandLink>
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                    function logout(xhr, status, args) {
+                                        setTimeout(function () {
+                                            window.location = 'faces/index.xhtml';
+                                        }, 500);
+                                    }
+                                    //]]>
+                                </script>
+                          
+                        </h:form>
+                    </div>   
+                </div>
+                <div id="menu">
+
+                    <div class="padding">
+                        <h:form>
+                            <style type="text/css">
+                                .ui-menubar   {
+                                    background-color: #143d52 !important; 
+                                    background: blue;
+                                    text-align: center;
+                                    width: 758px;
+                                    top:-7px;
+                                    left: 18px}
+                                .ui-menuitem   {
+                                    background-color: #143d52 !important; 
+                                    background: blue;
+                                    text-align: center;}
+
+                            </style>
+                            <p:growl id="growl" showDetail="true" life="3000"  />    
+                            <ui:insert name="contenidoMenu">
+                                <div class="padding"> 
+                                     <p:menubar styleClass="ui-menubar">
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="Inicio" url="inicioRegular.xhtml"/>
+                                        <p:menuitem value="Itinerario" url="Itinerario.xhtml"/>
+                                        <p:menuitem value="Factura" url="factura.xhtml"/>
+                                        <p:menuitem value="Información personal" url="datosCliente.xhtml"/>
+                                        <p:menuitem value="Contactos" url="contactos.xhtml"/>                                      
+                                    </p:menubar>
+                                </div>
+
+                            </ui:insert>
+                        </h:form>
+                    </div>
+
+
+                </div>
+
+                <div id="content">
+                    <div class="padding">
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" life="3000"  />    
+                            <ui:insert name="contenido">
+                                Principal
+                            </ui:insert>
+                        </h:form>
+                    </div>
+                </div>
+
+                <div id="footer"> 
+
+                    Copyright © 2015 <a href="#">SAIV</a> | <a href="contactos.xhtml">Contactos</a>
+
+                </div>
+            </div>    
+
+        </h:body>
+
+    </f:view>
+</html>
+
