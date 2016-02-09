@@ -5,9 +5,18 @@
  */
 package ec.espe.distri.web;
 
+import ec.espe.distri.modelo.Cliente;
+import ec.espe.distri.modelo.Usuario;
+import ec.espe.distri.servicios.ClienteServicio;
+import ec.espe.distri.servicios.UsuarioServicio;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -16,9 +25,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 @ManagedBean
 public class LoginBean implements Serializable{
+    @EJB
+    private ClienteServicio clienteServicio;
     private String username;
     private String password;
-
+    private Usuario usuario;
+    private UsuarioServicio usuarioServicio;
+    private Cliente cliente;
     public String getUsername() {
         return username;
     }
@@ -34,10 +47,49 @@ public class LoginBean implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
+    
+    @PostConstruct
+    public void inicializar()
+    {
+        this.usuarioServicio = new UsuarioServicio();
+    }
     
     public void login()
     {
-        
+        RequestContext context = RequestContext.getCurrentInstance();
+        this.usuario = this.usuarioServicio.validarLogin(username, password);
+        this.cliente = this.clienteServicio.buscarPorCodigo(this.usuario.getCodigoCliente());
+        if(this.cliente==null)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Credenciales inválidas"));
+
+            this.reset();
+            context.addCallbackParam("estaLogeado", false);
+            //context.addCallbackParam("view", "faces/index.xhtml");
+        }
+        else
+        {
+                        
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Bienveni@"));
+
+            context.addCallbackParam("estaLogeado", true);
+            context.addCallbackParam("view", "faces/menu.xhtml");
+        }
+    }
+    
+    public void reset()
+    {
+        this.cliente=null;
+        this.username ="";
+        this.password="";
     }
 }

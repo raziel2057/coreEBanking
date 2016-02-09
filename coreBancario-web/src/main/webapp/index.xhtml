@@ -54,6 +54,17 @@ and open the template in the editor.
                                       update="@form" 
                                      action="registro.xhtml?faces-redirect=true"/>
                                     </h:panelGrid>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        function manejarLogin(xhr, status, args) {
+                                          if (!args.validationFailed && args.estaLogeado) {
+                                            setTimeout(function() {
+                                              window.location = args.view;
+                                            }, 500);
+                                          }
+                                        }
+                                      //]]>
+                                      </script>
                                 </h:form>
 
                         </div>

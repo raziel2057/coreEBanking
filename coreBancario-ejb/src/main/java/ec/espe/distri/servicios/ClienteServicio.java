@@ -27,6 +27,11 @@ public class ClienteServicio {
         return this.clienteDAO.findAll();
         
     }
+    public Cliente buscarPorCodigo(Integer codigo)
+    {
+        Cliente c = this.clienteDAO.findById(codigo, false);
+        return c;
+    }
     public Cliente buscarPorCedula(String cedula)
     {
         Cliente c = new Cliente();

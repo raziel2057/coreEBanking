@@ -29,7 +29,7 @@ public class PersistenceManager {
 		
 		mongoClient.setWriteConcern(WriteConcern.SAFE);
 		morphia = new Morphia();
-		
+		morphia.getMapper().getConverters().addConverter(BigDecimalConverter.class);
 		morphia.mapPackage("ec.espe.distri.modelo", true);
 		
 	}

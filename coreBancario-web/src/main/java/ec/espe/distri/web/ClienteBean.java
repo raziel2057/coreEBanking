@@ -20,8 +20,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -133,7 +136,21 @@ public class ClienteBean implements Serializable {
     }
     public void crearCliente()
     {
-        Usuario usuario = new Usuario(this.cliente.getCodigo(), BigDecimal.ZERO, "S", contrasenia, this.usuario, this.correo);
-        this.usuarioServicio.crearUsuario(usuario);
+        Usuario usuario = new Usuario(this.cliente.getCodigo(), BigDecimal.ZERO, "S",DigestUtils.md5Hex(contrasenia), this.usuario, this.correo);
+        if(this.usuarioServicio.crearUsuario(usuario))
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "El usuario se creó correctamente"));
+            reset();
+        }
+            else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "El usuario ya existe"));
+         
+    }
+    public void reset()
+    {
+       this.cliente = null;
+       this.usuario="";
+       this.contrasenia="";
+       this.correo="";
     }
 }
