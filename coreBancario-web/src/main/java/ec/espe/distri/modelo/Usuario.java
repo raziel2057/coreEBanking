@@ -15,7 +15,7 @@ import org.mongodb.morphia.annotations.Entity;
 @Entity(value="persona")
 public class Usuario {
     private Integer codigoCliente;
-    private BigDecimal montoMaximo;
+    private double montoMaximo;
     private String activo;
     private String contrasenia;
     private String usuario;
@@ -24,7 +24,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer codigoCliente, BigDecimal montoMaximo, String activo, String contrasenia, String usuario, String correo) {
+    public Usuario(Integer codigoCliente, double montoMaximo, String activo, String contrasenia, String usuario, String correo) {
         this.codigoCliente = codigoCliente;
         this.montoMaximo = montoMaximo;
         this.activo = activo;
@@ -32,6 +32,8 @@ public class Usuario {
         this.usuario = usuario;
         this.correo = correo;
     }
+
+   
 
     public Integer getCodigoCliente() {
         return codigoCliente;
@@ -41,13 +43,15 @@ public class Usuario {
         this.codigoCliente = codigoCliente;
     }
 
-    public BigDecimal getMontoMaximo() {
+    public double getMontoMaximo() {
         return montoMaximo;
     }
 
-    public void setMontoMaximo(BigDecimal montoMaximo) {
+    public void setMontoMaximo(double montoMaximo) {
         this.montoMaximo = montoMaximo;
     }
+
+    
 
     public String getActivo() {
         return activo;
