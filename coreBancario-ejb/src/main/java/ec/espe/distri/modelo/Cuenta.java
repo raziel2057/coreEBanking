@@ -7,6 +7,7 @@ package ec.espe.distri.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -81,6 +82,7 @@ public class Cuenta implements Serializable {
 
     public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
+        
     }
     
     

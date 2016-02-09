@@ -7,6 +7,7 @@ package ec.espe.distri.web;
 
 import ec.espe.distri.modelo.Cliente;
 import ec.espe.distri.modelo.Cuenta;
+import ec.espe.distri.modelo.Movimiento;
 import ec.espe.distri.modelo.Persona;
 import ec.espe.distri.modelo.Usuario;
 import ec.espe.distri.servicios.ClienteServicio;
@@ -16,6 +17,7 @@ import ec.espe.distri.servicios.MovimientoServicio;
 import ec.espe.distri.servicios.PersonaServicio;
 import ec.espe.distri.servicios.UsuarioServicio;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -46,11 +49,14 @@ public class ClienteBean implements Serializable {
     @EJB
     private CuentaServicio cuentaServicio;
     private List<Cuenta> consolidado;
+    private Cuenta cuentaSelected;
     
     private UsuarioServicio usuarioServicio;
     
     @EJB
     private MovimientoServicio movimientoServicio;
+    List<Movimiento> movimientos;
+    
     @EJB
     private EmpleadoServicio empleadoServicio;
     
@@ -120,6 +126,22 @@ public class ClienteBean implements Serializable {
     public void setDatosLogin(LoginBean datosLogin) {
         this.datosLogin = datosLogin;
     }
+
+    public Cuenta getCuentaSelected() {
+        return cuentaSelected;
+    }
+
+    public void setCuentaSelected(Cuenta cuentaSelected) {
+        this.cuentaSelected = cuentaSelected;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
     
 
     
@@ -127,7 +149,10 @@ public class ClienteBean implements Serializable {
     public void inicializar()
     {
         this.usuarioServicio = new UsuarioServicio();
-        this.posicionConsolidada();
+        
+        
+            this.posicionConsolidada();
+        
         /*//this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1,"Retiro, Cajero 1: Jose Almendariz");
         this.movimientoServicio.transferencia(BigDecimal.valueOf(50.52d), 1, 2);
         this.clientes = this.clienteServicio.obtenerTodas();
@@ -142,7 +167,23 @@ public class ClienteBean implements Serializable {
         if(this.getDatosLogin().getCliente()!=null)
             this.consolidado = this.cuentaServicio.consolidado(this.getDatosLogin().getCliente().getCodigo());
     }
-    
+    public void cargarMovimientos()
+    {
+        this.movimientos = this.movimientoServicio.consolidado(this.getDatosLogin().getCuentaSelected().getCodigo());
+    }
+    public void setCuentaLogin(Integer codigo) throws IllegalAccessException, InvocationTargetException
+    {
+        for(Cuenta c: consolidado)
+        {
+            if(c.getCodigo().equals(codigo))
+            {
+                
+               this.getDatosLogin().setCuentaSelected(c);
+            }
+        }
+        //this.getDatosLogin().setCuentaSelected(cuenta);
+        System.out.println(this.getDatosLogin().getCuentaSelected().getCodigo());
+    }
     public void buscarCliente()
     {
         this.cliente = this.clienteServicio.buscarPorCedula(cedula);

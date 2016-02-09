@@ -42,9 +42,7 @@ and open the template in the editor.
                             <h:outputText value="#{cuenta.tipo eq 'AH'?'Ahorros':'Corriente'}" />
                         </p:column>
                         <p:column headerText="Saldo">
-                            <h:outputText value="#{cuenta.saldo}" >
-                                <f:convertNumber pattern="#0.00" />
-                            </h:outputText>
+                            <h:outputText value="#{cuenta.saldo}" />
                         </p:column>
                         <p:column style="width:32px;text-align: center">
                             <p:commandButton update="@form" oncomplete="logout(xhr, status, args)"  actionListener="#{clienteBean.setCuentaLogin(cuenta.codigo)}" icon="ui-icon-search" title="View">

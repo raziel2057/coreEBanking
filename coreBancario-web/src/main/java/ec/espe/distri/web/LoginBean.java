@@ -6,10 +6,12 @@
 package ec.espe.distri.web;
 
 import ec.espe.distri.modelo.Cliente;
+import ec.espe.distri.modelo.Cuenta;
 import ec.espe.distri.modelo.Usuario;
 import ec.espe.distri.servicios.ClienteServicio;
 import ec.espe.distri.servicios.UsuarioServicio;
 import java.io.Serializable;
+import java.util.Collections;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -33,6 +35,7 @@ public class LoginBean implements Serializable{
     private Usuario usuario;
     private UsuarioServicio usuarioServicio;
     private Cliente cliente;
+    private Cuenta cuentaSelected;
     public String getUsername() {
         return username;
     }
@@ -55,6 +58,15 @@ public class LoginBean implements Serializable{
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Cuenta getCuentaSelected() {
+        return cuentaSelected;
+    }
+
+    public void setCuentaSelected(Cuenta cuentaSelected) {
+        this.cuentaSelected = cuentaSelected;
+        Collections.reverse(this.cuentaSelected.getMovimientos());
     }
     
     
