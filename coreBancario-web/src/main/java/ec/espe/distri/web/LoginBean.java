@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -82,7 +83,7 @@ public class LoginBean implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Bienveni@"));
 
             context.addCallbackParam("estaLogeado", true);
-            context.addCallbackParam("view", "faces/menu.xhtml");
+            context.addCallbackParam("view", "posicionConsolidada.xhtml");
         }
     }
     
@@ -91,5 +92,20 @@ public class LoginBean implements Serializable{
         this.cliente=null;
         this.username ="";
         this.password="";
+    }
+    
+    public boolean estaLogeado() {
+        if(this.cliente==null)
+            return false;
+        else
+            return true;
+    }
+    
+     public void logout() {
+        
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.invalidate();
+
+        
     }
 }

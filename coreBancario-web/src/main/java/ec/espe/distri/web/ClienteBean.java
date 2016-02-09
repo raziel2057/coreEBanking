@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -52,6 +53,9 @@ public class ClienteBean implements Serializable {
     private MovimientoServicio movimientoServicio;
     @EJB
     private EmpleadoServicio empleadoServicio;
+    
+    @ManagedProperty(value = "#{loginBean}")
+    private LoginBean datosLogin;
 
     public List<Cliente> getClientes() {
         return clientes;
@@ -108,6 +112,14 @@ public class ClienteBean implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public LoginBean getDatosLogin() {
+        return datosLogin;
+    }
+
+    public void setDatosLogin(LoginBean datosLogin) {
+        this.datosLogin = datosLogin;
+    }
     
 
     
@@ -115,6 +127,7 @@ public class ClienteBean implements Serializable {
     public void inicializar()
     {
         this.usuarioServicio = new UsuarioServicio();
+        this.posicionConsolidada();
         /*//this.movimientoServicio.retiro(BigDecimal.valueOf(50.52d), 1,"Retiro, Cajero 1: Jose Almendariz");
         this.movimientoServicio.transferencia(BigDecimal.valueOf(50.52d), 1, 2);
         this.clientes = this.clienteServicio.obtenerTodas();
@@ -122,6 +135,12 @@ public class ClienteBean implements Serializable {
         this.consolidado = this.cuentaServicio.obtenerTodas();
         //this.consolidado = this.cuentaServicio.obtenerTodas();
         //empleadoServicio.crearUsuarios();*/
+    }
+    
+    public void posicionConsolidada()
+    {
+        if(this.getDatosLogin().getCliente()!=null)
+            this.consolidado = this.cuentaServicio.consolidado(this.getDatosLogin().getCliente().getCodigo());
     }
     
     public void buscarCliente()

@@ -35,7 +35,7 @@ and open the template in the editor.
                                     //<![CDATA[
                                     function logout(xhr, status, args) {
                                         setTimeout(function () {
-                                            window.location = 'faces/index.xhtml';
+                                            window.location = 'index.xhtml';
                                         }, 500);
                                     }
                                     //]]>
@@ -53,7 +53,7 @@ and open the template in the editor.
                                     background-color: #143d52 !important; 
                                     background: blue;
                                     text-align: center;
-                                    width: 758px;
+                                    width: 858px;
                                     top:-7px;
                                     left: 18px}
                                 .ui-menuitem   {
@@ -63,7 +63,7 @@ and open the template in the editor.
 
                             </style>
                             <p:growl id="growl" showDetail="true" life="3000"  />    
-                            <ui:insert name="contenidoMenu">
+                            
                                 <div class="padding"> 
                                      <p:menubar styleClass="ui-menubar">
                                         <p:menuitem value="" url="#"/>
@@ -72,15 +72,16 @@ and open the template in the editor.
                                         <p:menuitem value="" url="#"/>
                                         <p:menuitem value="" url="#"/>
                                         <p:menuitem value="" url="#"/>
-                                        <p:menuitem value="Inicio" url="inicioRegular.xhtml"/>
-                                        <p:menuitem value="Itinerario" url="Itinerario.xhtml"/>
-                                        <p:menuitem value="Factura" url="factura.xhtml"/>
-                                        <p:menuitem value="Información personal" url="datosCliente.xhtml"/>
-                                        <p:menuitem value="Contactos" url="contactos.xhtml"/>                                      
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="" url="#"/>
+                                        <p:menuitem value="Posición Consolidada" url="posicionConsolidada.xhtml"/>
+                                        <p:menuitem value="Transferencias" url="transferencias.xhtml"/>
+                                        <p:menuitem value="Recargas celular" url="recargas.xhtml"/>
+                                                                            
                                     </p:menubar>
                                 </div>
 
-                            </ui:insert>
+                            
                         </h:form>
                     </div>
 
@@ -100,7 +101,7 @@ and open the template in the editor.
 
                 <div id="footer"> 
 
-                    Copyright © 2015 <a href="#">SAIV</a> | <a href="contactos.xhtml">Contactos</a>
+                    Copyright © 2016 <a href="#">Banco Banquito</a> | <a href="contactos.xhtml">Contactos</a>
 
                 </div>
             </div>    
