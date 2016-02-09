@@ -27,7 +27,7 @@ and open the template in the editor.
 
 
                 <ui:define name="contenido">
-                    <p:dataTable  var="mov" value="#{movimientoBean.movimientos}" rows="15"  paginator="true" paginatorPosition="bottom"  scrollable="true"  scrollHeight="500"  
+                    <p:dataTable  var="mov" value="#{movimientoBean.movimientos}" rows="10"  paginator="true" paginatorPosition="bottom"  scrollable="true"  scrollHeight="500"  
                                   rowKey="#{cuenta.codigo}"   >
                     
                         <p:column headerText="Fecha">
@@ -55,10 +55,32 @@ and open the template in the editor.
                             </h:outputText>
                         </p:column>
 
-                        
-
                     </p:dataTable>
                     
+                    <p:outputPanel id="seleccionPanel" style="margin-bottom:10px">
+                        <p:selectOneRadio id="opciones" value="#{movimientoBean.seleccion}" layout="custom">
+                            <f:selectItem itemLabel="Fechas" itemValue="Fechas" />
+                            <f:selectItem itemLabel="Movimientos" itemValue="Movimientos" />
+                            
+                        </p:selectOneRadio>
+
+                        <h:panelGrid columns="4" cellpadding="5">
+                            
+
+                            <p:radioButton id="opt1" for="opciones" itemIndex="1"  />
+                            <h:outputLabel for="opt1" value="Movimientos" />
+                            <p:inputText id="numeroMov" value="#{movimientoBean.cantidad}" />
+                            <p:commandButton id="buscar" value="Buscar" update="@form"   actionListener="#{movimientoBean.cargarMovimientos()}" />
+
+                            <p:radioButton id="opt2" for="opciones" itemIndex="0" />
+                            <h:outputLabel for="opt2" value="Fechas" />
+                            <p:calendar label="Inicio" value="#{movimientoBean.fechaInicio}" />
+                            <p:calendar label="Fin" value="#{movimientoBean.fechaFin}" />
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    
+                               
+                           
                     <script type="text/javascript">
                         //<![CDATA[
                         function logout(xhr, status, args) {

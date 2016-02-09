@@ -35,8 +35,9 @@ public class MovimientoServicio {
     public List<Movimiento> consolidado(Integer codigoCuenta)
     {
         Movimiento movimiento = new Movimiento();
+        
         movimiento.setCodigoCuenta(codigoCuenta);
-        return this.movimientoDAO.findO(movimiento,Order.DESC);
+        return this.movimientoDAO.findO(movimiento,Order.descendente("fecha"));
     }
     public void deposito(BigDecimal monto,Integer codigoCuenta,String descripcion)
     {
