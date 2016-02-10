@@ -53,5 +53,10 @@
             <version>1</version>
             <type>war</type>
         </dependency>
+        <dependency>
+            <groupId>ec.com.espe.distribuidas</groupId>
+            <artifactId>RmiDelegado</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
 </project>
