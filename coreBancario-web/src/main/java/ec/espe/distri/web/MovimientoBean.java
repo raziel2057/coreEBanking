@@ -117,10 +117,10 @@ public class MovimientoBean implements Serializable {
         
         for(int i=0;i<this.movimientos.size();i++)
         {
-           // if((this.movimientos.get(i).getFecha().before(fechaFin)||this.movimientos.get(i).getFecha().equals(fechaFin))
-            //        &&(this.movimientos.get(i).getFecha().after(fechaInicio)||this.movimientos.get(i).getFecha().equals(fechaInicio)))
+            if(!((this.movimientos.get(i).getFecha().before(fechaFin)||this.movimientos.get(i).getFecha().equals(fechaFin))
+                   &&(this.movimientos.get(i).getFecha().after(fechaInicio)||this.movimientos.get(i).getFecha().equals(fechaInicio))))
             
-            if(this.movimientos.get(i).getFecha().after(fechaFin) || this.movimientos.get(i).getFecha().before(fechaInicio))
+           // if(this.movimientos.get(i).getFecha().after(fechaFin) || this.movimientos.get(i).getFecha().before(fechaInicio))
             {
                 this.movimientos.remove(i);
                 i--;

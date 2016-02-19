@@ -74,22 +74,14 @@ and open the template in the editor.
 
                             <p:radioButton id="opt2" for="opciones" itemIndex="0" />
                             <h:outputLabel for="opt2" value="Fechas" />
-                            <p:calendar label="Inicio" value="#{movimientoBean.fechaInicio}" />
-                            <p:calendar label="Fin" value="#{movimientoBean.fechaFin}" />
+                            <p:calendar locale="es" label="Inicio" value="#{movimientoBean.fechaInicio}" pattern="dd/MM/yyyy HH:mm" />
+                            <p:calendar locale="es" label="Fin" value="#{movimientoBean.fechaFin}" pattern="dd/MM/yyyy HH:mm" />
                         </h:panelGrid>
                     </p:outputPanel>
                     
                                
                            
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        function logout(xhr, status, args) {
-                            setTimeout(function () {
-                                window.location = 'movimientos.xhtml';
-                            }, 500);
-                        }
-                        //]]>
-                    </script>
+                   
                 </ui:define>        
             </ui:composition>
 

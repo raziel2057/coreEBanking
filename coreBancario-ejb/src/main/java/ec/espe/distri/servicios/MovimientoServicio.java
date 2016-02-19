@@ -69,11 +69,12 @@ public class MovimientoServicio {
         this.movimientoDAO.insert(movimiento);
     }
     
-    public void transferencia(BigDecimal monto,Integer codigoCuentaOrigen,Integer codigoCuentaDestino)
+    public boolean transferencia(BigDecimal monto,Integer codigoCuentaOrigen,Integer codigoCuentaDestino)
     {
         //deposito
         Cuenta cuentaOrigen = this.cuentaDAO.findById(codigoCuentaOrigen, false);
         Cuenta cuentaDestino = this.cuentaDAO.findById(codigoCuentaDestino, false);
+        //if()
         this.deposito(monto, codigoCuentaDestino, "Transferencia de "
                                                     +cuentaOrigen.getCliente().getNombre()
                                                     +" "
@@ -83,6 +84,8 @@ public class MovimientoServicio {
                                                     +cuentaDestino.getCliente().getNombre()
                                                     +" "
                                                     +cuentaDestino.getCliente().getApellido());
+        
+        return false;
        
     }
 }
