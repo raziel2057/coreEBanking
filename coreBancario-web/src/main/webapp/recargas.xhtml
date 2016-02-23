@@ -20,6 +20,73 @@ and open the template in the editor.
             <style type="text/css" media="all">
                 @import "images/style.css";
             </style>
+            <script type="text/javascript">
+                                //notar el protocolo.. es 'ws' y no 'http'
+                               
+                                
+                                    var wsUri = "ws://192.168.0.53:8080/SistemaTelefonia/endpoint";
+                                    var websocket = new WebSocket(wsUri); //creamos el socket
+                                    websocket.onopen = function(evt) { //manejamos los eventos...
+                                        log("Conectado..."); //... y aparecerá en la pantalla
+                                    };
+                                    websocket.onmessage = function(evt) { // cuando se recibe un mensaje
+                                        var msg = JSON.parse(evt.data);
+                                        if(msg.resultado === "si")
+                                        {
+                                            document.getElementById('mainForm:cmdLnkIdSuppliers').click();
+                                            
+                                        }
+                                        else
+                                        {
+                                            
+                                            document.getElementById('mainForm:cmdLnkIdSuppliers2').click();
+                                        }
+                                       /* log("Mensaje recibido:" + evt.data);*/
+                                    };
+                                    websocket.onerror = function(evt) {
+                                        log("oho!.. error:" + evt.data);
+                                    };
+                                    
+                                    function cargar()
+                                    {
+                                        
+                    
+                                    }
+
+                                function enviarMensaje2(telefono,monto) {
+                                    
+                                   
+                                    log("Enviando:" + telefono);
+                                    /*websocket.send('{"telefono":"0145689632","monto":"20"}');*/
+                                    websocket.send('{"telefono":"0'+telefono+'","monto":"'+monto+'"}');
+                                   
+                                    log("Enviando:" + mensajeTXT.value);
+                                }
+
+                                function enviarMensaje(xhr, status, args) {
+                                    if(args.continuar)
+                                    {
+                                        setTimeout(function() {
+
+                                                  var telefono = args.telf;
+                                                    var monto = args.mont;
+                                                    log("Enviando:" + telefono);
+                                                    /*websocket.send('{"telefono":"0145689632","monto":"20"}');*/
+                                                    websocket.send('{"telefono":"'+telefono+'","monto":"'+monto+'"}');
+
+                                                    log("Enviando:" + mensajeTXT.value);
+
+                                                }, 500);
+                                        }
+                                    
+                                    
+                                }
+                                function log(mensaje) { //aqui mostrará el LOG de lo que está haciendo el WebSocket
+                                    var logDiv = document.getElementById("log");
+                                    logDiv.innerHTML += (mensaje + '<br/>');
+                                }
+
+                            </script>
         </h:head>
         <h:body>
             <ui:composition template="/plantillas/templateLogedRegular.xhtml">
@@ -27,7 +94,49 @@ and open the template in the editor.
 
 
                 <ui:define name="contenido">
-                    <img src="images/Bienvenido.jpg" alt="Bienvenido" width="770" height="385"/>
+                            
+                    <p:selectOneMenu id="consolidado" value="#{recargasBean.cuentaSelected.numero}"  effect="fold" editable="false">
+                        <f:selectItems value="#{recargasBean.consolidado}" var="cuenta" itemValue="#{cuenta.numero}" itemLabel="#{cuenta.numero.concat('-'.concat(cuenta.saldo))}" />
+                    </p:selectOneMenu>
+ 
+                    <h:panelGrid columns="1" width="320px">
+                        <p:inputText tabindex="1" id="txtTelefono" value="#{recargasBean.telefono}" required="true" placeholder="Teléfono" requiredMessage="Ingrese un número de celular" >
+                            <p:ajax event="keyup"
+                                    listener="#{recargasBean.imprimirDatos()}" />
+                        </p:inputText>
+                        <p:inputText tabindex="2" id="txtMonto" value="#{recargasBean.monto}" required="true" placeholder="Monto"  requiredMessage="Ingrese el monto">
+                            <p:ajax event="keyup"
+                                    listener="#{recargasBean.imprimirDatos()}" />
+                        </p:inputText>
+                        <p:commandButton tabindex="3" id="loginButton" value="Aceptar" class="btn btn-primary btn-block btn-large"
+                                         actionListener="#{recargasBean.asignarDatos()}" update="@form"
+                         oncomplete="enviarMensaje(xhr, status, args)"/>
+ 
+                       
+                        
+                    </h:panelGrid>
+                    <p:commandLink 
+                        id="cmdLnkIdSuppliers" 
+                        immediate="false"
+                        action="#{recargasBean.recargaExitosa()}"
+                        update="mainForm"
+                        value="">
+                        <f:verbatim></f:verbatim>
+                        <outputText value=""/>
+                    </p:commandLink>
+                    <h:commandLink 
+                        id="cmdLnkIdSuppliers2" 
+                        immediate="true"
+                        action="#{recargasBean.recargaFallida()}"
+                        value="">
+                        <f:verbatim></f:verbatim>
+                        <outputText value=""/>
+                    </h:commandLink>
+                    
+                    
+            <div id="log">
+ 
+        </div>
                     
                     
                 </ui:define>        

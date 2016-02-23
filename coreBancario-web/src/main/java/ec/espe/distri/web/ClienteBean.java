@@ -196,7 +196,7 @@ public class ClienteBean implements Serializable {
     }
     public void crearCliente()
     {
-        Usuario usuario = new Usuario(this.cliente.getCodigo(), 0.0d, "S",DigestUtils.md5Hex(contrasenia), this.usuario, this.correo);
+        Usuario usuario = new Usuario(this.cliente.getCodigo(), 500.0d, "S",DigestUtils.md5Hex(contrasenia), this.usuario, this.correo);
         if(this.usuarioServicio.crearUsuario(usuario))
         {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "El usuario se creó correctamente"));
