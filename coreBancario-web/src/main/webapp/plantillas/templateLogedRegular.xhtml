@@ -38,6 +38,12 @@ and open the template in the editor.
                                             window.location = 'index.xhtml';
                                         }, 500);
                                     }
+                                    
+                                    function login(xhr, status, args) {
+                                        setTimeout(function () {
+                                            window.location = 'movimientos.xhtml';
+                                        }, 500);
+                                    }
                                     //]]>
                                 </script>
                           
@@ -90,7 +96,7 @@ and open the template in the editor.
 
                 <div id="content">
                     <div class="padding">
-                        <h:form>
+                        <h:form id="mainForm">
                             <p:growl id="growl" showDetail="true" life="3000"  />    
                             <ui:insert name="contenido">
                                 Principal

@@ -28,7 +28,40 @@ and open the template in the editor.
 
                 <ui:define name="contenido">
                     
+                    <h:panelGrid columns="2" width="320px" title="Origen">
+                        <h:outputLabel for="txtMonto" value="Monto: " />
+                        <p:inputText tabindex="2" id="txtMonto" value="#{transferenciaBean.monto}" required="true" placeholder="0.0"  requiredMessage="Ingrese el monto">
+                            
+                        </p:inputText>
+                        <h:outputLabel for="consolidado" value="De la cuenta: " />
+                        <p:selectOneMenu id="consolidado" value="#{transferenciaBean.numeroCuentaOrigenS}"  effect="fold" editable="false">
+                            <f:selectItems value="#{transferenciaBean.consolidado}" var="cuenta" itemValue="#{cuenta.numero}" itemLabel="#{cuenta.numero.concat('-'.concat(cuenta.tipo eq 'AH'?'AHORROS-':'CORRIENTE-').concat(cuenta.saldo))}" />
+                        </p:selectOneMenu>
+
+                    </h:panelGrid>
                     
+                    <p:outputPanel id="seleccionPanel" style="margin-bottom:10px">
+                        <p:selectOneRadio id="opciones" value="#{transferenciaBean.seleccion}" layout="custom">
+                            <f:selectItem itemLabel="A la cuenta" itemValue="propia" />
+                            <f:selectItem itemLabel="Ala cuenta" itemValue="ajena" />
+                            
+                        </p:selectOneRadio>
+
+                        <h:panelGrid columns="4" cellpadding="5">
+                            
+
+                            <p:radioButton id="opt1" for="opciones" itemIndex="1"  />
+                            <h:outputLabel for="opt1" value="A la cuenta" />
+                            <p:inputText id="numeroMov" value="#{transferenciaBean.numeroCuentaDestinoSajena}" />
+                            <p:commandButton id="buscar" value="Transferir" update="@form"   actionListener="#{transferenciaBean.transferencia()}" />
+
+                            <p:radioButton id="opt2" for="opciones" itemIndex="0" />
+                            <h:outputLabel for="opt2" value="A la cuenta" />
+                            <p:selectOneMenu id="selectConsolidado" value="#{transferenciaBean.numeroCuentaDestinoS}"  effect="fold" editable="false">
+                                <f:selectItems value="#{transferenciaBean.consolidado}" var="cuenta" itemValue="#{cuenta.numero}" itemLabel="#{cuenta.numero.concat('-'.concat(cuenta.tipo eq 'AH'?'AHORROS-':'CORRIENTE-').concat(cuenta.saldo))}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:outputPanel>
                     
                 </ui:define>        
             </ui:composition>
