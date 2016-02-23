@@ -20,11 +20,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CLIENTE")
-public class Cliente implements Serializable {
+public class Cliente implements Serializable 
+{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     @Column(name = "CODIGO_CLIENTE", nullable = false)
     private Integer codigo;
+    
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;
     @Column(name = "APELLIDO", nullable = false)
